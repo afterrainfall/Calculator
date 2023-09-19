@@ -16,8 +16,8 @@ operation = {
 
 // variable for each num
 
-let num1 = 0;
-let num2 = 0;
+let num1 = '';
+let num2 = '';
 let optr = '';
 
 
@@ -63,15 +63,17 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
         valueArray.push(this.textContent);
         valueArray = valueArray.join('');
         display.textContent = valueArray;
-        switch (i % 2) {
-            case (1): 
-            num1 = +valueArray;
-            break;
+        // switch (i % 2) {
+        //     case (1): 
 
-            case (0): 
-            num2 = +valueArray;
-            break;
-        }
+        
+        num2 = +valueArray;
+            // num2 = ''; 
+            // break;
+            // case (0): 
+        // num2 = +valueArray;
+        //     // break;
+        // }
         valueArray = valueArray.split('');
         console.log(num1);
         console.log(num2);
@@ -82,6 +84,16 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
     // displayValue.textContent = valueArray.join('');
 
     if (this.classList.contains("optr")) {
+        if (num1 && num2) {
+            let result = operate(optr, num1, num2);
+            display.textContent = result;
+            num1 = result;
+        }
+
+        if (num1 == '') {
+        num1 = num2;
+        }
+        
         valueArray = valueArray.join('').split(this.textContent);
         console.log(valueArray);
         valueArray.splice(0,2);
@@ -91,8 +103,7 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
         // valueArray[1] = this.textContent;
         // valueArray = valueArray.join('');
         console.log(valueArray);
-        console.log(num1);
-        console.log(num2);
+        
         i++;
     }
 
