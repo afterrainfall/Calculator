@@ -1,0 +1,17 @@
+> Input value to valueArray[0]
+  > If valueArray[1] == 0
+  > Not operator
+  > Digits <=12 
+  > Assign value to num1
+> Add operator to valueArray[1]
+  > Assign value to optr
+> Input value to valueArray[2]
+  > If valueArray[1] is true
+  > Assign value to num2
+> Press another operator (or =), present result to display
+  > Use operate function to do operation
+> Input value to valueArray[2]
+  > Remove values/operator in valueArray[0]/[1]
+  > Move valueArray[2] to valueArray[0]
+  > > Assign value to num1
+
