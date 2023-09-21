@@ -4,15 +4,42 @@
 // divide
 
 operation = {
-'+' : (a, b) => a + b,
+'+' : (a, b) => 
+    Math.min(999999999999, Math.round(a + b)),
+    // Math.round(a + b)}, return (String(a + b).length >= 13) ? 
 
-'-' : (a, b) => a - b,
+'-' : (a, b) => 
+    Math.min(999999999999, Math.round(a - b)),
 
-'*' : (a, b) => a * b,
+'*' : (a, b) =>
+    Math.min(999999999999, Math.round(a * b)),
 
-'/' : (a, b) => a / b,
-
+'/' : (a, b) => {
+    if (b == 0) {
+        Math.min(999999999999, Math.round(a / b));
+        return "Can't div by 0";
+    } else {
+        return Math.min(999999999999, Math.round(a / b));
+    }},
 }
+
+// function getDecimalPlaces(e) {
+//     let text = e.String();
+//     let index = text.indexOf(".");
+//     if (index == -1) {
+//         return;
+//     } else {
+//         return (text.length - index - 1);
+//     }
+// } 
+
+// function truncDecimal(num, dec) {
+//     if (dec >= 12) {
+//         num.toFixed(12);
+//     } else {
+//         num.toFixed(dec);
+//     }
+// }
 
 
 // variable for each num
@@ -61,7 +88,11 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
         //     console.log(valueArray[2]);
         //     console.log(num2);
         // } else {
-        valueArray.push(this.textContent);
+        if (valueArray.length == 0 && this.textContent == "0" && num1 == null || valueArray.indexOf(".") !== -1 && this.textContent == ".") {
+            return;
+        } else {
+            valueArray.push(this.textContent);
+        }
         valueArray = valueArray.join('');
         display.textContent = valueArray;
         // switch (i % 2) {
@@ -101,14 +132,27 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
         } else if (this.textContent == "C") {
 
             valueArray.splice(-1, 1);
+            num2 = Number(String(num2).slice(-1));
+            valueArray = valueArray.join('');
             display.textContent = valueArray;
+            valueArray = valueArray.split('');
+
             console.log(valueArray);
             console.log(num1);
             console.log(num2);
 
+        } else if (num2 !== null && this.textContent == "%") {
+
+            valueArray = String(+valueArray.join('')/100);
+            // if (valueArray.length >= 13) 
+            display.textContent = valueArray.slice(0, 13);
+            num2 = +valueArray;
+            valueArray = valueArray.split('');
+
         } else if (this.textContent == "=") {
 
             let result = operate(optr, num1, num2);
+            console.log(typeof result);
             valueArray = [];
             num1 = null;
             num2 = null;
@@ -122,14 +166,16 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
             num1 = result;
             num2 = null;
             display.textContent = result;
+            if (typeof(result) !== "number") {
+                num1 = null;
+            };
             optr = this.textContent;
+            console.log(result);
 
         } else {
 
         if (num1 == null) {
-
             num1 = num2;
-
         }
         
         // valueArray = valueArray.join('').split(this.textContent);
@@ -162,6 +208,9 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
     //     console.log(num1);
     // }
 
+    // if (valueArray.length < 12 && this.classList.contains("btn0")) {
+
+    // }
 }));
 
 
