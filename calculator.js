@@ -11,13 +11,14 @@ operation = {
 '*' : (a, b) => a * b,
 
 '/' : (a, b) => a / b,
+
 }
 
 
 // variable for each num
 
-let num1 = '';
-let num2 = '';
+let num1 = null;
+let num2 = null;
 let optr = '';
 
 
@@ -32,7 +33,7 @@ function operate(optr, num1, num2){
 // add display
 
 let valueArray = [];
-let operands = '';
+// let operands = '';
 
 
 let displayValue = document.createElement('div');
@@ -84,28 +85,67 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
     // displayValue.textContent = valueArray.join('');
 
     if (this.classList.contains("optr")) {
-        if (num1 && num2) {
-            let result = operate(optr, num1, num2);
-            display.textContent = result;
-            num1 = result;
-        }
 
-        if (num1 == '') {
-        num1 = num2;
+        console.log(this.textContent);
+        
+        if (this.textContent == "AC") {
+
+            valueArray = [];
+            num1 = null;
+            num2 = null;
+            display.textContent = valueArray;
+            console.log(valueArray);
+            console.log(num1);
+            console.log(num2);
+
+        } else if (this.textContent == "C") {
+
+            valueArray.splice(-1, 1);
+            display.textContent = valueArray;
+            console.log(valueArray);
+            console.log(num1);
+            console.log(num2);
+
+        } else if (this.textContent == "=") {
+
+            let result = operate(optr, num1, num2);
+            valueArray = [];
+            num1 = null;
+            num2 = null;
+            display.textContent = result;
+            optr = this.textContent;
+
+        } else if (num1 !== null && num2 !== null) {
+
+            let result = operate(optr, num1, num2);
+            valueArray = [];
+            num1 = result;
+            num2 = null;
+            display.textContent = result;
+            optr = this.textContent;
+
+        } else {
+
+        if (num1 == null) {
+
+            num1 = num2;
+
         }
         
-        valueArray = valueArray.join('').split(this.textContent);
-        console.log(valueArray);
-        valueArray.splice(0,2);
+        // valueArray = valueArray.join('').split(this.textContent);
+        // console.log(valueArray);
+        valueArray = [];
         optr = this.textContent;
-        console.log(optr);
         // valueArray[1] = '';
         // valueArray[1] = this.textContent;
         // valueArray = valueArray.join('');
         console.log(valueArray);
-        
-        i++;
+        }
+        // i++;
     }
+
+    // if (this.classList.contains("btnPoint")) {
+
 
     // if (valueArray[1]) {
     //     display.textContent = '';
